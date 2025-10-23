@@ -11,7 +11,7 @@ def signup(request):
         if form.is_valid():
             # Save user
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])  # hash password
+            user.set_password(form.cleaned_data['password'])
             user.save()
 
             # Save profile (role)
@@ -33,18 +33,30 @@ def login_View(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
+
             if user is not None:
                 login(request, user)
-                if user.profile.role == 'student':
-                    return redirect('student_dashboard')
-                elif user.profile.role == 'teacher':
-                    return redirect('teacher_dashboard')
-                elif user.profile.role == 'admin':
+
+                profile, created = Profile.objects.get_or_create(user=user)
+
+                #  Handle role-based redirect
+                if user.is_superuser or profile.role == 'admin':
                     return redirect('admin_dashboard')
+                elif profile.role == 'teacher':
+                    return redirect('teacher_dashboard')
+                elif profile.role == 'student':
+                    return redirect('student_dashboard')
+                else:
+                    logout(request)
+                    return render(request, 'login.html', {
+                        'form': form,
+                        'error': 'No valid role assigned.'
+                    })
             else:
                 return render(request, 'login.html', {'form': form, 'error': 'Invalid credentials'})
     else:
         form = LoginForm()
+
     return render(request, 'login.html', {'form': form})
 
 
@@ -53,9 +65,11 @@ def login_View(request):
 def student_dashboard(request):
     return render(request, 'dashboard3.html')
 
+
 @login_required
 def teacher_dashboard(request):
     return render(request, 'dashboard2.html')
+
 
 @login_required
 def admin_dashboard(request):

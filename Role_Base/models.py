@@ -6,7 +6,6 @@ class Profile(models.Model):
     
 
     ROLE_CHOICES = (
-        ('admin', 'Admin'),
         ('teacher', 'Teacher'),
         ('student', 'Student'),
     )

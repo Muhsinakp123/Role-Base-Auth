@@ -5,14 +5,15 @@ from .models import Profile
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
-    role = forms.ChoiceField(choices=Profile.ROLE_CHOICES)
+    role = forms.ChoiceField(
+        choices=[('', '---Select Role---')] + list(Profile.ROLE_CHOICES),
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
-        help_texts = {
-            'username': None,   # removes "Required. 150 characters..." text
-        }
+        help_texts = {'username': None}
 
     def clean(self):
         cleaned_data = super().clean()
@@ -21,6 +22,8 @@ class UserForm(forms.ModelForm):
         if password != confirm_password:
             raise forms.ValidationError("Passwords do not match")
         return cleaned_data
+
+
 
 
 class LoginForm(forms.Form):

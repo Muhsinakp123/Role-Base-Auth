@@ -18,6 +18,7 @@ body {
     width: 100%;
     max-width: 400px;
     text-align: center;
+
 }
 
 /* Heading */
@@ -51,6 +52,25 @@ form input:focus {
     border-color: #2575fc;
     box-shadow: 0 0 5px rgba(37, 117, 252, 0.4);
 }
+
+form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s ease;
+    font-size: 14px;
+    margin-bottom: 5px;
+    background-color: #fff;
+}
+
+form select:focus {
+    border-color: #2575fc;
+    box-shadow: 0 0 5px rgba(37, 117, 252, 0.4);
+}
+
+
 
 /* Button Styling */
 button {
@@ -98,6 +118,51 @@ p a:hover {
   padding: 0;
 }
 
+
+.admin-box {
+    margin: 30px auto 0;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px 25px;
+    max-width: 400px;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.admin-box:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+.admin-box h3 {
+    font-size: 17px;
+    color: #222;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+}
+
+.admin-box p {
+    font-size: 15px;
+    color: #333;
+    margin: 8px 0;
+}
+
+.admin-box strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.admin-box code {
+    background: #f6f6f6;
+    padding: 3px 6px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #111;
+    font-family: monospace;
+}
 
 
 
