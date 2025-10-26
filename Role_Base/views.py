@@ -40,7 +40,7 @@ def login_View(request):
                 profile, created = Profile.objects.get_or_create(user=user)
 
                 #  Handle role-based redirect
-                if user.is_superuser or profile.role == 'admin':
+                if user.is_superuser :
                     return redirect('admin_dashboard')
                 elif profile.role == 'teacher':
                     return redirect('teacher_dashboard')
